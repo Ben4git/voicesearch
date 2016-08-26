@@ -1,6 +1,10 @@
 <html>
 <head>
     <title>{{ title }} - Voice search</title>
+        <script src="/static/audio_src/recorder.js"></script>
+		<script src="/static/audio_src/Fr.voice.js"></script>
+        <script src="/static/js/jquery.js"></script>
+		<script src="/static/js/app.js"></script>
     <style href="/static/css/main.css">
         input[type=text] {
             outline-width: 0;
@@ -149,6 +153,37 @@
 	        background: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#f0f0f0));
 	        background: -moz-linear-gradient(top,  #f2f2f2,  #f0f0f0);
             }
+
+        .button{
+            display: inline-block;
+            vertical-align: middle;
+            margin: 0px 5px;
+            padding: 5px 12px;
+            cursor: pointer;
+            outline: none;
+            font-size: 13px;
+            text-decoration: none !important;
+            text-align: center;
+            color:#fff;
+            background-color: #666;
+            background-image: linear-gradient(top,#666, #666);
+            background-image: -ms-linear-gradient(top,#666, #666);
+            background-image: -o-linear-gradient(top,#666, #666);
+            background-image: linear-gradient(top,#666, #666);
+            border: 1px solid #666;
+            border-radius: 25px;
+            box-shadow: 0 1px 3px #BFBFBF;
+            }
+          a.button{
+            color: #fff;
+            }
+          .button:hover{
+            box-shadow: inset 0px 1px 1px #8C8C8C;
+            }
+          .button.disabled{
+            box-shadow:none;
+            opacity:0.7;
+            }
     </style>
 </head>
     <body>
@@ -160,6 +195,13 @@
             <form action="." method="POST">
                 <input type="text" name="text" placeholder="Search..">
             </form>
+            <audio controls src="" id="audio"></audio>
+              <div style="margin:10px;">
+                <a class="button" id="record">Record</a>
+                <a class="button disabled one" id="stop">Stop</a>
+                <a class="button disabled one" id="play">Play</a>
+                <a class="button disabled one" id="download">Download</a>
+              </div>
             {% if result %}
                 <table class="center" cellpadding="2" cellspacing="2">
                 <th colspan="5"> Product recommendation </th>
