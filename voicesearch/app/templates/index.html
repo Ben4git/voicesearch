@@ -157,32 +157,37 @@
         .button{
             display: inline-block;
             vertical-align: middle;
-            margin: 0px 5px;
-            padding: 5px 12px;
+            padding: 10px 10px;
             cursor: pointer;
             outline: none;
             font-size: 13px;
             text-decoration: none !important;
             text-align: center;
-            color:#fff;
-            background-color: #666;
-            background-image: linear-gradient(top,#666, #666);
-            background-image: -ms-linear-gradient(top,#666, #666);
-            background-image: -o-linear-gradient(top,#666, #666);
-            background-image: linear-gradient(top,#666, #666);
-            border: 1px solid #666;
-            border-radius: 25px;
+            color:#666;
+            background-color: #ddd;
+            background-image: linear-gradient(top,#ddd, #666);
+            background-image: -ms-linear-gradient(top,#ddd, #666);
+            background-image: -o-linear-gradient(top,#ddd, #666);
+            background-image: linear-gradient(top,#ddd, #666);
+            border: 1px solid #ddd;
+            border-radius: 50px;
             box-shadow: 0 1px 3px #BFBFBF;
             }
-          a.button{
-            color: #fff;
+        a.button{
+            color: #708090;
             }
-          .button:hover{
-            box-shadow: inset 0px 1px 1px #8C8C8C;
+        .button:hover{
+            box-shadow: inset 0px 1px 1px #708090;
+            text-decoration: none;
+            color: #aaa;
+            background: #666;
             }
-          .button.disabled{
+        .button.disabled{
             box-shadow:none;
             opacity:0.7;
+            }
+        .button:active{
+            background: #242424;
             }
     </style>
 </head>
@@ -197,8 +202,8 @@
             </form>
             <audio controls src="" id="audio"></audio>
               <div style="margin:10px;">
-                <a class="button" id="record">Record</a>
-                <a class="button disabled one" id="stop">Stop</a>
+                <a class="button" id="record"><img src="static/mic.png" width="30px" alt="submit" /></a>
+                <a class="button disabled one" id="Stop">Reset</a>
                 <a class="button disabled one" id="play">Play</a>
                 <a class="button disabled one" id="download">Download</a>
               </div>
