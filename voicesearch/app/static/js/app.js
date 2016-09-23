@@ -94,8 +94,8 @@ $(document).ready(function(){
       formData.append('file', blob);
   
       $.ajax({
-        url: "upload.php",
-        type: 'POST',
+        url: "//localhost:5000/getText/",
+        type: 'GET',
         data: formData,
         contentType: false,
         processData: false,
