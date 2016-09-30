@@ -24,6 +24,12 @@ $(document).ready(function(){
       
       var bufferLength = analyser.frequencyBinCount;
       var dataArray = new Uint8Array(bufferLength);
+
+
+
+      /// call recapp
+
+
       
       WIDTH = 500, HEIGHT = 200;
       canvasCtx = $("#level")[0].getContext("2d");
@@ -94,10 +100,10 @@ $(document).ready(function(){
       formData.append('file', blob);
   
       $.ajax({
-        url: "//localhost:5000/getText/",
-        type: 'GET',
+        url: "https://siroop.recapp.ch:10002/asr",
+        type: 'POST',
         data: formData,
-        contentType: false,
+        contentType: 'application/audio-wav',
         processData: false,
         success: function(url) {
           $("#audio").attr("src", url);
