@@ -16,7 +16,7 @@
 
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
-var URL = "/asr"
+var URL = "https://siroop.recapp.ch:10002/asr"
 
 var audioContext = new AudioContext();
 var audioInput = null,
@@ -35,7 +35,7 @@ function sendBlob(blob) {
     var request = new XMLHttpRequest();
 
     request.open("POST", URL);
-
+    console.log(request);
     updateStatus("Sending data to " + URL)
     request.onreadystatechange=function() {
        updateStatus(request.responseText);
@@ -73,6 +73,7 @@ function gotBuffers( buffers ) {
 
 
 function toggleRecording( e ) {
+    console.log('Hallo')
     if (e.classList.contains("recording")) {
         // stop recording
         audioRecorder.stop();
