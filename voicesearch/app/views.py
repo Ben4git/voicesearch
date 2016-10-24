@@ -4,7 +4,7 @@ from flask_cors import CORS, cross_origin
 from flask import render_template, request
 from app import app
 
-ELASTIC_BASE = 'http://www-explorer.pthor.ch/elastic/all_products_spryker_read/_search?q={}&size=10'
+ELASTIC_BASE = 'http://www-explorer.pthor.ch/elastic/all_products_spryker_read/_search?q={}&size=12'
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -22,7 +22,12 @@ def index():
 
             def extract_product_info(hit):
                 return {'name': hit['_source']['de_CH']['name'],
-                        'image': hit['_source']['images']['lowres'][0]}
+                        'image': hit['_source']['images']['lowres'][0],
+                        'url': hit['_source']['de_CH']['url'],
+                        'price': ((hit['_source']['min_price'])),
+                        'merchant': hit['_source']['merchants']
+                        }
+
 
             result = map(extract_product_info, s_table)
         except:
