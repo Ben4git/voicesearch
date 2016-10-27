@@ -17,7 +17,7 @@ var recIndex = 0;
 
 function sendBlob(blob) {
 
-    updateStatus("Sending data to " + URL);
+    updateStatus("Loading... ");
 
     var fd = new FormData();
     fd.append('fname', 'test.wav');
@@ -38,7 +38,10 @@ function sendBlob(blob) {
 
 function updateStatus(status) {
     var statusP = document.getElementById("status");
+    var statusS = document.getElementById("search_input");
     statusP.innerHTML = status;
+    statusS.value = status;
+
 }
 
 /* TODO:
@@ -67,23 +70,24 @@ function gotBuffers(buffers) {
 
 
 function toggleRecording(e) {
-    console.log('inside toggleRecording', 'Hallo');
     if (e.classList.contains("recording")) {
+         console.log('inside toggleRecording', '1');
         // stop recording
         audioRecorder.stop();
         e.classList.remove("recording");
-        e.src = "/static/mic.png"
-        document.getElementById('circle').style.visibility = "hidden"
+        e.src = "/static/mic.png";
+        document.getElementById('circle').style.visibility = "hidden";
         audioRecorder.getBuffers(gotBuffers);
-
     } else {
         // start recording
         if (!audioRecorder)
             return;
+
+        console.log('should record now');
         e.classList.add("recording");
         audioRecorder.clear();
-        e.src = "/static/mic.png"
-        document.getElementById('circle').style.visibility = "visible"
+        e.src = "/static/mic.png";
+        document.getElementById('circle').style.visibility = "visible";
         audioRecorder.record();
     }
 }
