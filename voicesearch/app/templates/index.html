@@ -2387,33 +2387,36 @@ document.write("<script async src='/browser-sync/browser-sync-client.js?v=2.17.3
                         <a class="icon-arrow-left-icon svg-icon c-header__close-search-btn js-close-search-trigger">
                         </a>
                         <div class="c-search-global js-search-target">
-                            <form action="." method="POST" autocomplete="off" class="c-search-global__form">
+                            <form id="press_button" action="." method="POST" autocomplete="off"
+                                  class="c-search-global__form">
 
-                                <input id="search_input" type="text" name="text" placeholder="Wonach suchst du?" autocomplete="off"
+                                <input id="search_input" type="text" name="text" placeholder="Wonach suchst du?"
+                                       autocomplete="off"
                                        value="" class="c-input c-search-global__input"
                                        data-search-history="fjällraven Kanken"
                                        data-search-history-label-translation="Deine letzten Suchanfragen">
                             </form>
-                            <a class="btn btn--small c-search-global__btn c-search-global__btn-clear js-search-clear-target">
-             <span class="svg-icon btn__icon">
-                <svg viewBox="0 0 22.04 22.04"><path
-                        d="M969.94,520.9l9.32-9.32a1,1,0,0,0-1.41-1.41l-9.32,9.32-9.32-9.32a1,1,0,0,0-1.41,1.41l9.32,9.32-9.32,9.32a1,1,0,1,0,1.41,1.41l9.32-9.32,9.32,9.32a1,1,0,0,0,1.41-1.41Z"
-                        transform="translate(-957.5 -509.88)"></path></svg>             </span>
-                                </a>
+                            <div id="controls">
 
-                                <button type="submit"
-                                        class="btn btn--small c-search-global__btn js-search-submit-target">
-            <span class="svg-icon btn__icon">
-                  <svg viewBox="0 0 29.16 29.16"><path
-                          d="M982.81,224.2l-9.72-9.72a10.84,10.84,0,1,0-1.41,1.41l9.72,9.72A1,1,0,0,0,982.81,224.2Zm-26.86-16.63a8.82,8.82,0,1,1,8.82,8.82A8.83,8.83,0,0,1,955.94,207.57Z"
-                          transform="translate(-953.94 -196.75)"></path></svg>             </span>
+                                <button class="btn btn--small c-search-global__btn js-search-submit-target button">
+                                    <img id="record" src="/static/mic.png" width="25px"
+                                         onclick="toggleRecording(this); event.preventDefault();" class="">
                                 </button>
-
-                            </form>
+                                <div id="circle"></div>
+                            </div>
                         </div>
                     </div>
                     <div class="c-header__buttons-container">
                         <ul class="c-header-buttons">
+                            <li class="c-header-buttons__item c-header-button__item--search">
+                                <button type="button" title="__Suche__"
+                                        class="js-open-search-trigger o-button-unstyled c-icon c-icon-search">
+                                    <svg viewBox="0 0 29.16 29.16">
+                                        <path d="M982.81,224.2l-9.72-9.72a10.84,10.84,0,1,0-1.41,1.41l9.72,9.72A1,1,0,0,0,982.81,224.2Zm-26.86-16.63a8.82,8.82,0,1,1,8.82,8.82A8.83,8.83,0,0,1,955.94,207.57Z"
+                                              transform="translate(-953.94 -196.75)"></path>
+                                    </svg>
+                                </button>
+                            </li>
                             <li class="c-header-buttons__item c-header-button__item--search">
                                 <button type="button" title="Suche"
                                         class="js-open-search-trigger o-button-unstyled c-icon c-icon-search">
@@ -2441,181 +2444,33 @@ document.write("<script async src='/browser-sync/browser-sync-client.js?v=2.17.3
         </div>
     </div>
 </header>
-    <div style="margin:10px;">
-        <div id="controls">
-            <textarea id="status"> 	</textarea>
-            <div class="" style="width: 128px;">
-                <button class="button">
-                    <img id="record" src="/static/mic.png" width="30" onclick="toggleRecording(this);" class="">
-                </button>
-                <div id="circle"></div>
-            </div>
-        </div>
-    </div>
-    {% if result %}
+
+{% if results %}
     <div class="u-margin-top-xlarge obj-wrapper obj-wrapper--medium o-container">
         <div class="o-product-list o-product-list--light" data-t-name="ProductList">
-        <ul class="o-product-list__list obj-layout-6-3-3-3 obj-swipe@s">
+            <ul class="o-product-list__list obj-layout-6-3-3-3 obj-swipe@s">
 
-            <div class="o-product-list__item obj-layout__col obj-swipe@s__item"><a href="http://www.siroop.ch/{{ result[0].url }}"
-                                                                                   class="o-product-list__item-link">
-                <div class="o-product-list__content"><img class="o-product-list__item-image"
-                                                          src="{{ result[0].image }}"
-                                                          alt="">
-                    <div class="o-product-list__item-title">
-                        {{ result[0].name }}
+                {% for result in results %}
+                    <div class="o-product-list__item obj-layout__col obj-swipe@s__item">
+                        <a href="http://www.siroop.ch/{{ result.url }}"
+                           class="o-product-list__item-link">
+                            <div class="o-product-list__content"><img class="o-product-list__item-image"
+                                                                      src="{{ result.image }}"
+                                                                      alt="">
+                                <div class="o-product-list__item-title">
+                                    {{ result.name }}
+                                </div>
+                                <div class="o-product-list__item-price">
+                                    CHF {{ result.price }}
+                                </div>
+                            </div>
+                        </a>
                     </div>
-                    <div class="o-product-list__item-price">
-                        CHF {{ result[0].price }}
-                    </div>
-                </div>
-            </a></div>
-             <div class="o-product-list__item obj-layout__col obj-swipe@s__item"><a href="http://www.siroop.ch/{{ result[1].url }}"
-                                                                                   class="o-product-list__item-link">
-                <div class="o-product-list__content"><img class="o-product-list__item-image"
-                                                          src="{{ result[1].image }}"
-                                                          alt="">
-                    <div class="o-product-list__item-title">
-                        {{ result[1].name }}
-                    </div>
-                    <div class="o-product-list__item-price">
-                        CHF {{ result[1].price }}
-                    </div>
-                </div>
-            </a></div>
-             <div class="o-product-list__item obj-layout__col obj-swipe@s__item"><a href="http://www.siroop.ch/{{ result[2].url }}"
-                                                                                   class="o-product-list__item-link">
-                <div class="o-product-list__content"><img class="o-product-list__item-image"
-                                                          src="{{ result[2].image }}"
-                                                          alt="">
-                    <div class="o-product-list__item-title">
-                        {{ result[2].name }}
-                    </div>
-                    <div class="o-product-list__item-price">
-                        CHF {{ result[2].price }}
-                    </div>
-                </div>
-            </a></div>
-             <div class="o-product-list__item obj-layout__col obj-swipe@s__item"><a href="http://www.siroop.ch/{{ result[3].url }}"
-                                                                                   class="o-product-list__item-link">
-                <div class="o-product-list__content"><img class="o-product-list__item-image"
-                                                          src="{{ result[3].image }}"
-                                                          alt="">
-                    <div class="o-product-list__item-title">
-                        {{ result[3].name }}
-                    </div>
-                    <div class="o-product-list__item-price">
-                        CHF {{ result[3].price }}
-                    </div>
-                </div>
-            </a></div>
-             <div class="o-product-list__item obj-layout__col obj-swipe@s__item"><a href="http://www.siroop.ch/{{ result[4].url }}"
-                                                                                   class="o-product-list__item-link">
-                <div class="o-product-list__content"><img class="o-product-list__item-image"
-                                                          src="{{ result[4].image }}"
-                                                          alt="">
-                    <div class="o-product-list__item-title">
-                        {{ result[4].name }}
-                    </div>
-                    <div class="o-product-list__item-price">
-                        CHF {{ result[4].price }}
-                    </div>
-                </div>
-            </a></div>
-             <div class="o-product-list__item obj-layout__col obj-swipe@s__item"><a href="http://www.siroop.ch/{{ result[5].url }}"
-                                                                                   class="o-product-list__item-link">
-                <div class="o-product-list__content"><img class="o-product-list__item-image"
-                                                          src="{{ result[5].image }}"
-                                                          alt="">
-                    <div class="o-product-list__item-title">
-                        {{ result[5].name }}
-                    </div>
-                    <div class="o-product-list__item-price">
-                        CHF {{ result[5].price }}
-                    </div>
-                </div>
-            </a></div>
-             <div class="o-product-list__item obj-layout__col obj-swipe@s__item"><a href="http://www.siroop.ch/{{ result[6].url }}"
-                                                                                   class="o-product-list__item-link">
-                <div class="o-product-list__content"><img class="o-product-list__item-image"
-                                                          src="{{ result[6].image }}"
-                                                          alt="">
-                    <div class="o-product-list__item-title">
-                        {{ result[6].name }}
-                    </div>
-                    <div class="o-product-list__item-price">
-                        CHF {{ result[6].price }}
-                    </div>
-                </div>
-            </a></div>
-             <div class="o-product-list__item obj-layout__col obj-swipe@s__item"><a href="http://www.siroop.ch/{{ result[7].url }}"
-                                                                                   class="o-product-list__item-link">
-                <div class="o-product-list__content"><img class="o-product-list__item-image"
-                                                          src="{{ result[7].image }}"
-                                                          alt="">
-                    <div class="o-product-list__item-title">
-                        {{ result[7].name }}
-                    </div>
-                    <div class="o-product-list__item-price">
-                        CHF {{ result[7].price }}
-                    </div>
-                </div>
-            </a></div>
-             <div class="o-product-list__item obj-layout__col obj-swipe@s__item"><a href="http://www.siroop.ch/{{ result[8].url }}"
-                                                                                   class="o-product-list__item-link">
-                <div class="o-product-list__content"><img class="o-product-list__item-image"
-                                                          src="{{ result[8].image }}"
-                                                          alt="">
-                    <div class="o-product-list__item-title">
-                        {{ result[8].name }}
-                    </div>
-                    <div class="o-product-list__item-price">
-                        CHF {{ result[8].price }}
-                    </div>
-                </div>
-            </a></div>
-             <div class="o-product-list__item obj-layout__col obj-swipe@s__item"><a href="http://www.siroop.ch/{{ result[9].url }}"
-                                                                                   class="o-product-list__item-link">
-                <div class="o-product-list__content"><img class="o-product-list__item-image"
-                                                          src="{{ result[9].image }}"
-                                                          alt="">
-                    <div class="o-product-list__item-title">
-                        {{ result[9].name }}
-                    </div>
-                    <div class="o-product-list__item-price">
-                        CHF {{ result[9].price }}
-                    </div>
-                </div>
-            </a></div>
-             <div class="o-product-list__item obj-layout__col obj-swipe@s__item"><a href="http://www.siroop.ch/{{ result[10].url }}"
-                                                                                   class="o-product-list__item-link">
-                <div class="o-product-list__content"><img class="o-product-list__item-image"
-                                                          src="{{ result[10].image }}"
-                                                          alt="">
-                    <div class="o-product-list__item-title">
-                        {{ result[10].name }}
-                    </div>
-                    <div class="o-product-list__item-price">
-                        CHF {{ result[10].price }}
-                    </div>
-                </div>
-            </a></div>
-             <div class="o-product-list__item obj-layout__col obj-swipe@s__item"><a href="http://www.siroop.ch/{{ result[11].url }}"
-                                                                                   class="o-product-list__item-link">
-                <div class="o-product-list__content"><img class="o-product-list__item-image"
-                                                          src="{{ result[11].image }}"
-                                                          alt="">
-                    <div class="o-product-list__item-title">
-                        {{ result[11].name }}
-                    </div>
-                    <div class="o-product-list__item-price">
-                        CHF {{ result[11].price }}
-                    </div>
-                </div>
-            </a></div>
-        </ul>
+                {% endfor %}
+
+            </ul>
+        </div>
     </div>
-</div>
-    {% endif %}
+{% endif %}
 </body>
 </html>

@@ -28,7 +28,7 @@ function sendBlob(blob) {
         data: blob,
         success: function (result) {
             console.log(result.data);
-            updateStatus(result.data[0]['textParsed']);
+            executeSearch(result.data[0]['textParsed']);
         },
         processData: false,
         contentType: false
@@ -37,12 +37,23 @@ function sendBlob(blob) {
 }
 
 function updateStatus(status) {
-    var statusP = document.getElementById("status");
     var statusS = document.getElementById("search_input");
-    statusP.innerHTML = status;
     statusS.value = status;
+    //statusS.click("search_input");
+
+    console.log('updating status....');
 
 }
+
+function executeSearch(status) {
+    var statusS = document.getElementById("search_input");
+    statusS.value = status;
+
+    console.log('executing search.... for keyword: ' + status);
+
+    document.forms['press_button'].submit();
+}
+
 
 /* TODO:
 
@@ -71,7 +82,8 @@ function gotBuffers(buffers) {
 
 function toggleRecording(e) {
     if (e.classList.contains("recording")) {
-         console.log('inside toggleRecording', '1');
+
+        console.log('end recording');
         // stop recording
         audioRecorder.stop();
         e.classList.remove("recording");
@@ -83,7 +95,7 @@ function toggleRecording(e) {
         if (!audioRecorder)
             return;
 
-        console.log('should record now');
+        console.log('recording');
         e.classList.add("recording");
         audioRecorder.clear();
         e.src = "/static/mic.png";

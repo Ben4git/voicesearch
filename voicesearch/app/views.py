@@ -11,7 +11,7 @@ ELASTIC_BASE = 'http://www-explorer.pthor.ch/elastic/all_products_spryker_read/_
 @cross_origin(origin='*')
 def index():
     errors = []
-    result = {}
+    results = {}
     if request.method == "POST":
         try:
             print 'start'
@@ -30,14 +30,14 @@ def index():
                         }
 
 
-            result = map(extract_product_info, s_table)
+            results = map(extract_product_info, s_table)
         except:
             print 'error, cant connect'
             errors.append(
                 "Unable to get URL. Please make sure it's valid and try again."
             )
 
-    return render_template('index.html', errors=errors, result=result)
+    return render_template('index.html', errors=errors, results=results)
 
 def generate_elastic_url(search):
     return ELASTIC_BASE.format(search)
