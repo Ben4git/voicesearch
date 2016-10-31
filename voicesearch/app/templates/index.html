@@ -6,8 +6,6 @@
     <script src="/static/js/jquery.js"></script>
     <script src="/static/js/vue.js"></script>
     <script src="/static/js/main.js"></script>
-    <style href="/static/css/main.css"></style>
-    <style href="/static/css/style.css"></style>
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,10 +16,12 @@
     <link rel="icon" href="/assets/img/icon/favicon.ico">
     <link rel="apple-touch-icon" href="/assets/img/icon/favicon-32x32.png"/>
 
-    <title></title>
+    <title>Voice Search</title>
 
     <link rel="stylesheet" href="//siroop.ch/css/main.css?v=1860705abb24"/>
     <link href="static/css/main.css" rel="stylesheet">
+    <link href="static/css/style.css" rel="stylesheet">
+
 </head>
 <body>
 <script id="__bs_script__">//<![CDATA[
@@ -2398,9 +2398,9 @@ document.write("<script async src='/browser-sync/browser-sync-client.js?v=2.17.3
                             </form>
                             <div id="controls">
 
-                                <button class="btn btn--small c-search-global__btn js-search-submit-target button">
-                                    <img id="record" src="/static/mic.png" width="25px"
-                                         onclick="toggleRecording(this); event.preventDefault();" class="">
+                                <button class="button btn btn--small c-search-global__btn js-search-submit-target">
+                                    <img id="record" src="/static/mic.png"
+                                         onclick="toggleRecording(this); event.preventDefault();" class="c-image__style">
                                 </button>
                                 <div id="circle"></div>
                             </div>

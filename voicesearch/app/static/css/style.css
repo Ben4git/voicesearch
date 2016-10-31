@@ -1,20 +1,20 @@
 .center {
     text-align: center;
 }
+
 .search {
     text-align: center;
     width: 80%;
 }
 
-.button {
-    background: #4a4a4a;
-    border-radius: 25px;
-    margin-bottom: 10px;
+.c-image__style {
+    width: 20px;
 }
-.button:hover {
-    background: #242424;
-    border-radius: 35px;
-}
+
 .c-display__form {
     display: inline-block;
+}
+
+.button {
+    padding: 7px;
 }
