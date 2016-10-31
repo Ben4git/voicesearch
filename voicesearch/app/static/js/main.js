@@ -1,5 +1,3 @@
-
-
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
 var URL = "https://siroop.recapp.ch:10002/asr/";
@@ -13,7 +11,62 @@ var rafID = null;
 var analyserContext = null;
 var canvasWidth, canvasHeight;
 var recIndex = 0;
+var productList = null;
+var productData = [];
+var init = true;
+var currentVue = null;
 
+// DOM Loaded ( we have to be sure that all elements are available )
+document.addEventListener('DOMContentLoaded', function () {
+    var recordingButton = document.getElementById('btn-record');
+    var form_input_text = document.getElementById('form_text_input');
+
+    initVue();
+
+    recordingButton.addEventListener('mousedown', function (ev) {
+        startRecording(ev);
+        updateStatus("Listening... ");
+    });
+
+    form_input_text.addEventListener('submit', function (ev) {
+        event.preventDefault();
+        var statusS = document.getElementById("search_input");
+        executeSearch(statusS.value);
+    });
+
+    recordingButton.addEventListener('mouseup', function (ev) {
+        stopRecording(ev);
+    });
+});
+
+function initVue() {
+    currentVue = new Vue({
+        el: '#productList',
+        data: {
+            products: productList
+        },
+        methods: {
+            updateAll: function (data) {
+                console.log('update all method 1', data);
+                this.products = data;
+            }
+        }
+    });
+}
+
+function getProducts(searchTerm, cb) {
+    console.log('get products');
+    $.get({
+        url: 'http://www-explorer.pthor.ch/elastic/all_products_spryker_read/_search?q=' + searchTerm + '&size=12',
+        success: function (result) {
+            productList = result.hits.hits;
+            cb(productList);
+        },
+        error: function (err) {
+            console.log('error from api', err);
+        }
+    });
+}
 
 function sendBlob(blob) {
 
@@ -39,7 +92,6 @@ function sendBlob(blob) {
 function updateStatus(status) {
     var statusS = document.getElementById("search_input");
     statusS.value = status;
-    //statusS.click("search_input");
 
     console.log('updating status....');
 
@@ -51,9 +103,28 @@ function executeSearch(status) {
 
     console.log('executing search.... for keyword: ' + status);
 
-    document.forms['press_button'].submit();
+    getProducts(status, function(products) {
+        currentVue.updateAll(products);
+    });
+
+    //document.forms['press_button'].submit();
 }
 
+function startRecording(event) {
+    event.preventDefault();
+    var el = event.currentTarget;
+    el.classList.add("recording");
+    audioRecorder.clear();
+    audioRecorder.record();
+}
+
+function stopRecording(ev) {
+    event.preventDefault();
+    var el = event.currentTarget;
+    el.classList.remove("recording");
+    audioRecorder.stop();
+    audioRecorder.getBuffers(gotBuffers);
+}
 
 /* TODO:
 
@@ -80,27 +151,19 @@ function gotBuffers(buffers) {
 }
 
 
-function toggleRecording(e) {
-    if (e.classList.contains("recording")) {
+function toggleRecording(event) {
+    var el = event.target;
+    if (el.classList.contains("recording")) {
 
         console.log('end recording');
         // stop recording
         audioRecorder.stop();
-        e.classList.remove("recording");
-        e.src = "/static/mic.png";
+        el.classList.remove("recording");
+        el.src = "/static/mic.png";
         document.getElementById('circle').style.visibility = "hidden";
         audioRecorder.getBuffers(gotBuffers);
     } else {
-        // start recording
-        if (!audioRecorder)
-            return;
 
-        console.log('recording');
-        e.classList.add("recording");
-        audioRecorder.clear();
-        e.src = "/static/mic.png";
-        document.getElementById('circle').style.visibility = "visible";
-        audioRecorder.record();
     }
 }
 
@@ -122,8 +185,8 @@ function cancelAnalyserUpdates() {
 function updateAnalysers(time) {
     if (!analyserContext) {
         var canvas = document.getElementById("analyser");
-       // canvasWidth = canvas.width;
-       // canvasHeight = canvas.height;
+        // canvasWidth = canvas.width;
+        // canvasHeight = canvas.height;
         analyserContext = canvas.getContext('2d');
     }
 

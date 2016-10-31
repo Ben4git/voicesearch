@@ -2387,7 +2387,7 @@ document.write("<script async src='/browser-sync/browser-sync-client.js?v=2.17.3
                         <a class="icon-arrow-left-icon svg-icon c-header__close-search-btn js-close-search-trigger">
                         </a>
                         <div class="c-search-global js-search-target">
-                            <form id="press_button" action="." method="POST" autocomplete="off"
+                            <form id="form_text_input" action="." method="POST" autocomplete="off"
                                   class="c-search-global__form">
 
                                 <input id="search_input" type="text" name="text" placeholder="Wonach suchst du?"
@@ -2398,10 +2398,11 @@ document.write("<script async src='/browser-sync/browser-sync-client.js?v=2.17.3
                             </form>
                             <div id="controls">
 
-                                <button class="button btn btn--small c-search-global__btn js-search-submit-target">
-                                    <img id="record" src="/static/mic.png"
-                                         onclick="toggleRecording(this); event.preventDefault();" class="c-image__style">
+                                <button id="btn-record"
+                                        class="button btn btn--small c-search-global__btn js-search-submit-target">
+                                    <img id="record" src="/static/mic.png" class="js-recording-button c-image__style">
                                 </button>
+
                                 <div id="circle"></div>
                             </div>
                         </div>
@@ -2445,32 +2446,30 @@ document.write("<script async src='/browser-sync/browser-sync-client.js?v=2.17.3
     </div>
 </header>
 
-{% if results %}
-    <div class="u-margin-top-xlarge obj-wrapper obj-wrapper--medium o-container">
-        <div class="o-product-list o-product-list--light" data-t-name="ProductList">
-            <ul class="o-product-list__list obj-layout-6-3-3-3 obj-swipe@s">
-
-                {% for result in results %}
-                    <div class="o-product-list__item obj-layout__col obj-swipe@s__item">
-                        <a href="http://www.siroop.ch/{{ result.url }}"
+<div id="productList">
+        <div class="u-margin-top-xlarge obj-wrapper obj-wrapper--medium o-container">
+            <div class="o-product-list o-product-list--light" data-t-name="ProductList">
+                <div class="o-product-list__list obj-layout-6-3-3-3 obj-swipe@s">
+                    <div class="o-product-list__item obj-layout__col obj-swipe@s__item" v-for="product in products">
+                        {{ product._source.brand_name }}
+                        <a href="http://www.siroop.ch/{{ product._source.de_CH.url }}"
                            class="o-product-list__item-link">
-                            <div class="o-product-list__content"><img class="o-product-list__item-image"
-                                                                      src="{{ result.image }}"
-                                                                      alt="">
+                            <div class="o-product-list__content">
+                                <img class="o-product-list__item-image"
+                                     v-bind:src="product._source.images.lowres[0]"
+                                     alt="">
                                 <div class="o-product-list__item-title">
-                                    {{ result.name }}
+                                    {{ product._source.de_CH.name }}
                                 </div>
                                 <div class="o-product-list__item-price">
-                                    CHF {{ result.price }}
+                                    CHF {{ product._source.min_price }}
                                 </div>
                             </div>
                         </a>
                     </div>
-                {% endfor %}
-
-            </ul>
+                </div>
+            </div>
         </div>
-    </div>
-{% endif %}
+</div>
 </body>
 </html>

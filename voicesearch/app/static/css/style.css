@@ -11,10 +11,21 @@
     width: 20px;
 }
 
+.c-search-global__btn.recording {
+    border: solid 3px red;
+    border-radius: 100%;
+}
+
 .c-display__form {
     display: inline-block;
 }
 
 .button {
     padding: 7px;
+}
+.js-recording-button {
+
+}
+.white-space {
+    white-space: pre;
 }
