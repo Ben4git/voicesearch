@@ -1,6 +1,5 @@
 <html>
 <head>
-    <title>{{ title }} - Voice search</title>
     <script src="/static/js/recorder.js"></script>
     <script src="/static/js/recorderworker.js"></script>
     <script src="/static/js/jquery.js"></script>
@@ -13,20 +12,46 @@
     <meta name="description" content="">
     <meta name="robots" content="noindex, nofollow">
 
-    <link rel="icon" href="/assets/img/icon/favicon.ico">
-    <link rel="apple-touch-icon" href="/assets/img/icon/favicon-32x32.png"/>
+    <link rel="apple-touch-icon" sizes="57x57" href="http://siroop.ch/images/favicon/apple-touch-icon-57x57.png?v=4">
+    <link rel="apple-touch-icon" sizes="60x60" href="http://siroop.ch/images/favicon/apple-touch-icon-60x60.png?v=4">
+    <link rel="apple-touch-icon" sizes="72x72" href="http://siroop.ch/images/favicon/apple-touch-icon-72x72.png?v=4">
+    <link rel="apple-touch-icon" sizes="76x76" href="http://siroop.ch/images/favicon/apple-touch-icon-76x76.png?v=4">
+    <link rel="apple-touch-icon" sizes="114x114"
+          href="http://siroop.ch/images/favicon/apple-touch-icon-114x114.png?v=4">
+    <link rel="apple-touch-icon" sizes="120x120"
+          href="http://siroop.ch/images/favicon/apple-touch-icon-120x120.png?v=4">
+    <link rel="apple-touch-icon" sizes="144x144"
+          href="http://siroop.ch/images/favicon/apple-touch-icon-144x144.png?v=4">
+    <link rel="apple-touch-icon" sizes="152x152"
+          href="http://siroop.ch/images/favicon/apple-touch-icon-152x152.png?v=4">
+    <link rel="apple-touch-icon" sizes="180x180"
+          href="http://siroop.ch/images/favicon/apple-touch-icon-180x180.png?v=4">
+    <link rel="icon" type="image/png" href="http://siroop.ch/images/favicon/favicon-32x32.png?v=4" sizes="32x32">
+    <link rel="icon" type="image/png" href="http://siroop.ch/images/favicon/favicon-96x96.png?v=4" sizes="96x96">
+    <link rel="icon" type="image/png" href="http://siroop.ch/images/favicon/favicon-16x16.png?v=4" sizes="16x16">
+    <link rel="manifest" href="http://siroop.ch/images/favicon/manifest.json?v=4">
+    <link rel="mask-icon" href="http://siroop.ch/images/favicon/safari-pinned-tab.svg?v=4" color="#5bbad5">
 
-    <title>Voice Search</title>
 
-    <link rel="stylesheet" href="//siroop.ch/css/main.css?v=1860705abb24"/>
+    <title>{{ title }}</title>
+
+
+    <link rel="stylesheet" href="http://siroop.ch/css/main.css?v=1860705abb24"/>
     <link href="static/css/main.css" rel="stylesheet">
     <link href="static/css/style.css" rel="stylesheet">
 
+    <script>
+        new Vue({
+            el: 'html',
+            data: {
+                title: 'siroop voice'
+            }
+        })
+    </script>
+
 </head>
 <body>
-<script id="__bs_script__">//<![CDATA[
-document.write("<script async src='/browser-sync/browser-sync-client.js?v=2.17.3'><\/script>".replace("HOST", location.hostname));
-//]]></script>
+
 <svg xmlns="http://www.w3.org/2000/svg">
     <symbol id="account" viewBox="0 0 1024 1024">
         <circle cx="512.3" cy="328" r="215.7"/>
@@ -2445,29 +2470,29 @@ document.write("<script async src='/browser-sync/browser-sync-client.js?v=2.17.3
 </header>
 
 <div id="productList">
-        <div class="u-margin-top-xlarge obj-wrapper obj-wrapper--medium o-container">
-            <div class="o-product-list o-product-list--light" data-t-name="ProductList">
-                <div class="o-product-list__list obj-layout-6-3-3-3 obj-swipe@s">
-                    <div class="o-product-list__item obj-layout__col obj-swipe@s__item" v-for="product in products">
-                        {{ product._source.brand_name }}
-                        <a href="http://www.siroop.ch/{{ product._source.de_CH.url }}"
-                           class="o-product-list__item-link">
-                            <div class="o-product-list__content">
-                                <img class="o-product-list__item-image"
-                                     v-bind:src="product._source.images.lowres[0]"
-                                     alt="">
-                                <div class="o-product-list__item-title">
-                                    {{ product._source.de_CH.name }}
-                                </div>
-                                <div class="o-product-list__item-price">
-                                    CHF {{ product._source.min_price }}
-                                </div>
+    <div class="u-margin-top-xlarge obj-wrapper obj-wrapper--medium o-container">
+        <div class="o-product-list o-product-list--light" data-t-name="ProductList">
+            <div class="o-product-list__list obj-layout-6-3-3-3 obj-swipe@s">
+                <div class="o-product-list__item obj-layout__col obj-swipe@s__item" v-for="product in products">
+                    {{ product._source.brand_name }}
+                    <a href="http://www.siroop.ch/{{ product._source.de_CH.url }}"
+                       class="o-product-list__item-link">
+                        <div class="o-product-list__content">
+                            <img class="o-product-list__item-image"
+                                 v-bind:src="product._source.images.lowres[0]"
+                                 alt="">
+                            <div class="o-product-list__item-title">
+                                {{ product._source.de_CH.name }}
                             </div>
-                        </a>
-                    </div>
+                            <div class="o-product-list__item-price">
+                                CHF {{ product._source.min_price }}
+                            </div>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
+    </div>
 </div>
 </body>
 </html>
