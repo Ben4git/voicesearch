@@ -7,12 +7,7 @@ var audioInput = null,
     realAudioInput = null,
     inputPoint = null,
     audioRecorder = null;
-var rafID = null;
-var analyserContext = null;
-var canvasWidth, canvasHeight;
-var recIndex = 0;
 var productList = null;
-var productData = [];
 var init = true;
 var currentVue = null;
 
@@ -47,7 +42,6 @@ function initVue() {
         },
         methods: {
             updateAll: function (data) {
-                console.log('update all method 1', data);
                 this.products = data;
             }
         }
@@ -55,7 +49,6 @@ function initVue() {
 }
 
 function getProducts(searchTerm, cb) {
-    console.log('get products');
     $.get({
         url: 'http://www-explorer.pthor.ch/elastic/all_products_spryker_read/_search?q=' + searchTerm + '&size=12',
         success: function (result) {
@@ -92,9 +85,6 @@ function sendBlob(blob) {
 function updateStatus(status) {
     var statusS = document.getElementById("search_input");
     statusS.value = status;
-
-    console.log('updating status....');
-
 }
 
 function executeSearch(value) {
@@ -116,7 +106,7 @@ function startRecording(event) {
     audioRecorder.record();
 }
 
-function stopRecording(ev) {
+function stopRecording(event) {
     event.preventDefault();
     var el = event.currentTarget;
     var searchField = document.getElementById('form_text_input');
@@ -126,15 +116,8 @@ function stopRecording(ev) {
     audioRecorder.getBuffers(gotBuffers);
 }
 
-function gotBuffers(buffers) {
-    var canvas = document.getElementById("wavedisplay");
-
-    //drawBuffer(canvas.width, canvas.height, canvas.getContext('2d'), buffers[0]);
-
-    // the ONLY time gotBuffers is called is right after a new recording is completed -
-    // so here's where we should set up the download.
+function gotBuffers() {
     audioRecorder.exportMonoWAV(sendBlob);
-    //apiaiSend();
 }
 
 function gotStream(stream) {
@@ -144,8 +127,6 @@ function gotStream(stream) {
     realAudioInput = audioContext.createMediaStreamSource(stream);
     audioInput = realAudioInput;
     audioInput.connect(inputPoint);
-
-//    audioInput = convertToMono( input );
 
     analyserNode = audioContext.createAnalyser();
     analyserNode.fftSize = 2048;
@@ -157,7 +138,6 @@ function gotStream(stream) {
     zeroGain.gain.value = 0.0;
     inputPoint.connect(zeroGain);
     zeroGain.connect(audioContext.destination);
-    //updateAnalysers();
 }
 
 function initAudio() {

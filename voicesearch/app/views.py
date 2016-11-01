@@ -1,7 +1,5 @@
-import json
-import requests
-from flask_cors import CORS, cross_origin
-from flask import render_template, request
+from flask_cors import cross_origin
+from flask import render_template
 from app import app
 
 
