@@ -1,3 +1,7 @@
 .idea/*
 *.pyc
 rev.txt
+bin/
+.Python
+
+*.iml
