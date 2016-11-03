@@ -50,7 +50,7 @@ function initVue() {
 
 function getProducts(searchTerm, cb) {
     $.get({
-        url: 'http://www-explorer.pthor.ch/elastic/all_products_spryker_read/_search?q=' + searchTerm + '&size=12',
+        url: 'https://www-explorer.pthor.ch/elastic/all_products_spryker_read/_search?q=' + searchTerm + '&size=12',
         success: function (result) {
             productList = result.hits.hits;
             cb(productList);
