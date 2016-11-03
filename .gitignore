@@ -22,7 +22,6 @@ t.py
 venv/
 build/
 develop-eggs/
-/dist/
 eggs/
 lib/
 lib64/

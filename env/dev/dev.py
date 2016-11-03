@@ -27,11 +27,11 @@ class SearchFlaskUwsgiService(FlaskUwsgiService):
     ]
 
 
-class ThorEnv(EnvTask):
+class DevEnv(EnvTask):
     """
     Use dev environment
     """
-    name = "thor"
+    name = "dev"
 
     def run(self):
         env.hosts = ['ubuntu@prodsearch.iterativ.ch']
@@ -39,13 +39,13 @@ class ThorEnv(EnvTask):
         env.key_filename = '~/.ssh/prodsearch.pem'
         env.env_name = 'dev'
         env.services = [SearchFlaskUwsgiService, NginxService]
-        env.project_name = 'searchService'
-        env.remote_virtualenv = '/srv/www/searchService/dev/searchService-env'
-        env.server_names = ['search.iterativ.ch']
+        env.project_name = 'voicesearch'
+        env.remote_virtualenv = '/srv/www/voicesearch/dev/voicesearch-env'
+        env.server_names = ['voice.iterativ.ch']
         env.nginx_no_follow = True
-        env.requirements_file = 'requirements/req.pip'
-        env.puppet_branch_name = 'ubuntu1404'
+        env.requirements_file = 'pip.txt'
+        env.puppet_branch_name = 'ubuntu1604'
         env.not_allowed_tasks = ['resetload', 'delete']
 
 
-thor_env = ThorEnv()
+dev_env = DevEnv()

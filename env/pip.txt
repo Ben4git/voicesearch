@@ -14,3 +14,8 @@ itsdangerous==0.24
 urllib3==1.16
 
 
+
+# deployment
+Fabric==1.9.1
+-e git://github.com/iterativ/deployit.git@ubuntu1404#egg=deployit
+

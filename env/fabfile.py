@@ -36,7 +36,7 @@ class SearchServiceDeploy(Deploy):
         # python sources
         rsync_project(
             remote_dir=env.remote_path(),
-            local_dir=env.local_path('searchService'),
+            local_dir=env.local_path('voicesearch'),
             exclude=env.rsync_exclude,
             extra_opts='--rsync-path="sudo rsync"',
         )
@@ -60,47 +60,47 @@ class LightSearchServiceDeploy(SearchServiceDeploy):
     full_deploy = False
 
 
-class ResetElastic(BaseTask):
-    """
-    Delete elasticsearch index
-    """
-    name = "reset_elastic"
-
-    def run(self):
-        # first delete existing indices
-        self.delete_all_indices()
-        # setup index mappings
-        self.setup_mappings()
-        # setup aliases
-        self.setup_aliases()
-
-    def delete_all_indices(self):
-        run('curl -XDELETE localhost:9200/_all')
-
-    def setup_mappings(self):
-        for qs in glob.glob('../elastic/mappings/*'):
-            index_file = qs.split('/')[-1]
-            if '.json' in index_file and len(index_file) > 5:
-                index_name = index_file[:-5]
-
-                print "Load index '%s' mapping from '%s'" % (index_name, qs)
-                mapping = open(qs).read().replace('\n', '').replace('\r', '').replace('  ', ' ')
-
-                run("curl -k -XPOST localhost:9200/%s -d '%s'" % (index_name, mapping))
-
-    def setup_aliases(self):
-        for qs in glob.glob('../elastic/aliases/*'):
-            alias_file = qs.split('/')[-1]
-            if '.json' in alias_file and len(alias_file) > 5:
-                alias_name = alias_file[:-5]
-
-                print "Load alias '%s' from '%s'" % (alias_name, qs)
-                alias = open(qs).read().replace('\n', '').replace('\r', '').replace('  ', ' ')
-
-                run("curl -k -XPOST localhost:9200/_aliases -d '%s'" % alias)
+# class ResetElastic(BaseTask):
+#     """
+#     Delete elasticsearch index
+#     """
+#     name = "reset_elastic"
+#
+#     def run(self):
+#         # first delete existing indices
+#         self.delete_all_indices()
+#         # setup index mappings
+#         self.setup_mappings()
+#         # setup aliases
+#         self.setup_aliases()
+#
+#     def delete_all_indices(self):
+#         run('curl -XDELETE localhost:9200/_all')
+#
+#     def setup_mappings(self):
+#         for qs in glob.glob('../elastic/mappings/*'):
+#             index_file = qs.split('/')[-1]
+#             if '.json' in index_file and len(index_file) > 5:
+#                 index_name = index_file[:-5]
+#
+#                 print "Load index '%s' mapping from '%s'" % (index_name, qs)
+#                 mapping = open(qs).read().replace('\n', '').replace('\r', '').replace('  ', ' ')
+#
+#                 run("curl -k -XPOST localhost:9200/%s -d '%s'" % (index_name, mapping))
+#
+#     def setup_aliases(self):
+#         for qs in glob.glob('../elastic/aliases/*'):
+#             alias_file = qs.split('/')[-1]
+#             if '.json' in alias_file and len(alias_file) > 5:
+#                 alias_name = alias_file[:-5]
+#
+#                 print "Load alias '%s' from '%s'" % (alias_name, qs)
+#                 alias = open(qs).read().replace('\n', '').replace('\r', '').replace('  ', ' ')
+#
+#                 run("curl -k -XPOST localhost:9200/_aliases -d '%s'" % alias)
 
 
 full_deploy = SearchServiceDeploy()
 light_deploy = LightSearchServiceDeploy()
 
-reset_elastic = ResetElastic()
+# reset_elastic = ResetElastic()
