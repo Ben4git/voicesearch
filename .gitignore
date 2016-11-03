@@ -1,3 +1,10 @@
+.idea/*
+*.pyc
+rev.txt
+bin/
+.Python
+
+*.iml
 .idea
 env/
 
@@ -15,7 +22,6 @@ t.py
 venv/
 build/
 develop-eggs/
-/dist/
 eggs/
 lib/
 lib64/
