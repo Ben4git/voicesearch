@@ -6,7 +6,7 @@ html {
 
 @font-face {
   font-family: 'siroop';
-  src: url("/font/icon-font/siroop.eot?67zwp1"), url("/font/icon-font/siroop.eot?67zwp1#iefix") format("embedded-opentype"), url("../font/icon-font/siroop.ttf?67zwp1") format("truetype"), url("../font/icon-font/siroop.woff?67zwp1") format("woff"), url("../font/icon-font/siroop.svg?67zwp1#siroop") format("svg");
+  src: url("/static/fonts/siroop.eot"), url("/static/fonts/siroop.eot") format("embedded-opentype"), url("/static/fonts/siroop.ttf") format("truetype");
   font-weight: normal;
   font-style: normal; }
 
