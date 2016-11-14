@@ -23,6 +23,12 @@ document.addEventListener('DOMContentLoaded', function () {
         updateStatus("Listening... ");
     });
 
+    recordingButton.addEventListener('touchstart', function (ev) {
+        ev.preventDefault();
+        startRecording(ev);
+        updateStatus("Listening... ");
+    });
+
     form_input_text.addEventListener('submit', function (ev) {
         event.preventDefault();
         var statusS = document.getElementById("search_input");
@@ -30,6 +36,10 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     recordingButton.addEventListener('mouseup', function (ev) {
+        stopRecording(ev);
+    });
+
+    recordingButton.addEventListener('touchend', function (ev) {
         stopRecording(ev);
     });
 });
