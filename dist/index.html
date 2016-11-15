@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <script src="/static/js/recorder.js"></script>
-    <script src="/static/js/recorderWorker.js"></script>
+    <script src="/static/js/recorderworker.js"></script>
     <script src="/static/js/jquery.js"></script>
     <script src="/static/js/vue.js"></script>
     <script src="/static/js/main.js"></script>
@@ -13,15 +13,36 @@
     <meta name="description" content="">
     <meta name="robots" content="noindex, nofollow">
 
-    <title>Siroop Voice</title>
+    <link rel="apple-touch-icon" sizes="57x57" href="http://siroop.ch/images/favicon/apple-touch-icon-57x57.png?v=4">
+    <link rel="apple-touch-icon" sizes="60x60" href="http://siroop.ch/images/favicon/apple-touch-icon-60x60.png?v=4">
+    <link rel="apple-touch-icon" sizes="72x72" href="http://siroop.ch/images/favicon/apple-touch-icon-72x72.png?v=4">
+    <link rel="apple-touch-icon" sizes="76x76" href="http://siroop.ch/images/favicon/apple-touch-icon-76x76.png?v=4">
+    <link rel="apple-touch-icon" sizes="114x114"
+          href="http://siroop.ch/images/favicon/apple-touch-icon-114x114.png?v=4">
+    <link rel="apple-touch-icon" sizes="120x120"
+          href="http://siroop.ch/images/favicon/apple-touch-icon-120x120.png?v=4">
+    <link rel="apple-touch-icon" sizes="144x144"
+          href="http://siroop.ch/images/favicon/apple-touch-icon-144x144.png?v=4">
+    <link rel="apple-touch-icon" sizes="152x152"
+          href="http://siroop.ch/images/favicon/apple-touch-icon-152x152.png?v=4">
+    <link rel="apple-touch-icon" sizes="180x180"
+          href="http://siroop.ch/images/favicon/apple-touch-icon-180x180.png?v=4">
+    <link rel="icon" type="image/png" href="http://siroop.ch/images/favicon/favicon-32x32.png?v=4" sizes="32x32">
+    <link rel="icon" type="image/png" href="http://siroop.ch/images/favicon/favicon-96x96.png?v=4" sizes="96x96">
+    <link rel="icon" type="image/png" href="http://siroop.ch/images/favicon/favicon-16x16.png?v=4" sizes="16x16">
+    <link rel="manifest" href="http://siroop.ch/images/favicon/manifest.json?v=4">
+    <link rel="mask-icon" href="http://siroop.ch/images/favicon/safari-pinned-tab.svg?v=4" color="#5bbad5">
 
 
-    <link href="static/css/siroopmain.css" rel="stylesheet"/>
+    <title>{{ title }}</title>
+
+
+    <link href="static/css/siroopmain.css" rel="stylesheet">
     <link href="static/css/kvasir_main.css" rel="stylesheet">
-    <link href="static/css/main.css" rel="stylesheet">
     <link href="static/css/style.css" rel="stylesheet">
+    <link href="static/css/list_1.css" rel="stylesheet">
 
-     <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
     <script>
         WebFont.load({
             google: {
@@ -2425,8 +2446,7 @@
                     </div>
                     <div class="c-header__buttons-container">
                         <ul class="c-header-buttons">
-                        <!--<li class="c-header-buttons__item c-header-button__item--search">
-                            <li class="c-header-buttons__item c-header-button__item--search">
+                            <!--<li class="c-header-buttons__item c-header-button__item--search">
                                 <button type="button" title="__Suche__"
                                         class="js-open-search-trigger o-button-unstyled c-icon c-icon-search">
                                     <svg viewBox="0 0 29.16 29.16">
@@ -2434,7 +2454,6 @@
                                               transform="translate(-953.94 -196.75)"></path>
                                     </svg>
                                 </button>
-                            </li>
                             </li>
                             <li class="c-header-buttons__item c-header-button__item--search">
                                 <button type="button" title="Suche"
@@ -2464,7 +2483,7 @@
     </div>
 </header>
 
-<div id="productList">
+<!--<div id="productList">
     <div class="u-margin-top-xlarge obj-wrapper obj-wrapper--medium o-container">
         <div class="o-product-list o-product-list--light" data-t-name="ProductList">
             <div class="o-product-list__list obj-layout-6-3-3-3 obj-swipe@s">
@@ -2487,6 +2506,34 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>-->
+
+<div class="kvasir" id="productList">
+    <div class="o-list o-list--style-3 obj-wrapper obj-wrapper--medium o-container" data-t-name="ProductList">
+        <ul class="o-list__list">
+            <li class="o-list__item" v-for="product in products">
+                <div class="o-list__item-wrap">
+                    <div class="m-list-item m-list-item--style-1" >
+                        <a class="m-list-item__link" href="http://www.siroop.ch/{{ product._source.de_CH.url }}"
+                           data-utag-impression data-utag="{&quot;sku&quot;: &quot;123-1&quot;}">
+                            <div class="m-list-item__image-wrap">
+                                <img class="m-list-item__image" v-bind:src="product._source.images.lowres[0]"/>
+                            </div>
+                            <div class="m-list-item__title">
+                                {{ product._source.de_CH.name }}
+                            </div>
+                            <div class="m-list-item__subtitle">
+                                <div class="m-price m-price--style-1">
+                                    <span class="m-price__currency">CHF</span>
+                                    <span class="m-price__value">{{ product._source.min_price }}</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </li>
+        </ul>
     </div>
 </div>
 </body>

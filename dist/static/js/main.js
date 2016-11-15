@@ -23,6 +23,12 @@ document.addEventListener('DOMContentLoaded', function () {
         updateStatus("Listening... ");
     });
 
+    recordingButton.addEventListener('touchstart', function (ev) {
+        ev.preventDefault();
+        startRecording(ev);
+        updateStatus("Listening... ");
+    });
+
     form_input_text.addEventListener('submit', function (ev) {
         event.preventDefault();
         var statusS = document.getElementById("search_input");
@@ -30,6 +36,10 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     recordingButton.addEventListener('mouseup', function (ev) {
+        stopRecording(ev);
+    });
+
+    recordingButton.addEventListener('touchend', function (ev) {
         stopRecording(ev);
     });
 });
@@ -50,7 +60,7 @@ function initVue() {
 
 function getProducts(searchTerm, cb) {
     $.get({
-        url: 'https://www-explorer.pthor.ch/elastic/all_products_spryker_read/_search?q=' + searchTerm + '&size=12',
+        url: 'http://www-explorer.pthor.ch/elastic/all_products_spryker_read/_search?q=' + searchTerm + '&size=12',
         success: function (result) {
             productList = result.hits.hits;
             cb(productList);

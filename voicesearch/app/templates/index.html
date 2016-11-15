@@ -37,12 +37,12 @@
     <title>{{ title }}</title>
 
 
-
     <link href="static/css/siroopmain.css" rel="stylesheet">
     <link href="static/css/kvasir_main.css" rel="stylesheet">
     <link href="static/css/style.css" rel="stylesheet">
+    <link href="static/css/list_1.css" rel="stylesheet">
 
-     <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
     <script>
         WebFont.load({
             google: {
@@ -2483,7 +2483,7 @@
     </div>
 </header>
 
-<div id="productList">
+<!--<div id="productList">
     <div class="u-margin-top-xlarge obj-wrapper obj-wrapper--medium o-container">
         <div class="o-product-list o-product-list--light" data-t-name="ProductList">
             <div class="o-product-list__list obj-layout-6-3-3-3 obj-swipe@s">
@@ -2506,6 +2506,34 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>-->
+
+<div class="kvasir" id="productList">
+    <div class="o-list o-list--style-3 obj-wrapper obj-wrapper--medium o-container" data-t-name="ProductList">
+        <ul class="o-list__list">
+            <li class="o-list__item" v-for="product in products">
+                <div class="o-list__item-wrap">
+                    <div class="m-list-item m-list-item--style-1" >
+                        <a class="m-list-item__link" href="http://www.siroop.ch/{{ product._source.de_CH.url }}"
+                           data-utag-impression data-utag="{&quot;sku&quot;: &quot;123-1&quot;}">
+                            <div class="m-list-item__image-wrap">
+                                <img class="m-list-item__image" v-bind:src="product._source.images.lowres[0]"/>
+                            </div>
+                            <div class="m-list-item__title">
+                                {{ product._source.de_CH.name }}
+                            </div>
+                            <div class="m-list-item__subtitle">
+                                <div class="m-price m-price--style-1">
+                                    <span class="m-price__currency">CHF</span>
+                                    <span class="m-price__value">{{ product._source.min_price }}</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </li>
+        </ul>
     </div>
 </div>
 </body>
